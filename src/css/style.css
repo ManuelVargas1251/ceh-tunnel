@@ -1,36 +1,39 @@
+html, body {
+  -webkit-touch-callout: none; /* Prevents callout menu on press & hold */
+  -webkit-user-select: none;   /* Prevents text selection highlight */
+  user-select: none;
+  -webkit-tap-highlight-color: transparent; /* Removes box tap highlight */
+}
+
 body {
   margin: 0;
   overflow: hidden;
   background-color: #050508;
   font-family: sans-serif;
 }
-#canvas-container {
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-}
-.ui-overlay {
-  position: absolute;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-  background: rgba(15, 15, 25, 0.75);
-  padding: 12px 24px;
-  border-radius: 30px;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
+
 audio {
   outline: none;
 }
 
-html, body {
-  -webkit-touch-callout: none; /* Prevents callout menu on press & hold */
-  -webkit-user-select: none;   /* Prevents text selection highlight */
-  user-select: none;
-  -webkit-tap-highlight-color: transparent; /* Removes box tap highlight */
+#canvas-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+}
+
+.ui-overlay {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  z-index: 10;
+  padding: 12px 24px;
+  transform: translateX(-50%);
+  background: rgba(15, 15, 25, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 30px;
+  backdrop-filter: blur(10px);
 }
