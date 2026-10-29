@@ -1,16 +1,8 @@
 // src/js/main.js
 import * as THREE from 'three';
-import { createAudioController } from './audio.js';
 
 // --- DOM References ---
 const container = document.getElementById('canvas-container');
-const audioPlayer = document.getElementById('audio-player');
-const audioController = createAudioController(audioPlayer);
-
-// Initialize Audio Context on Play
-audioPlayer.addEventListener('play', () => {
-  audioController.init();
-});
 
 // --- Three.js Setup ---
 const scene = new THREE.Scene();
@@ -66,31 +58,17 @@ const SPEED = 0.15;
 function animate() {
   requestAnimationFrame(animate);
 
-  const freqData = audioController.getFrequencyData();
-  const bassVal = freqData[2] ? freqData[2] / 255 : 0; // Sub-bass frequency intensity
-
   rings.forEach((ring, index) => {
     // 1. Move rings toward the camera
-    ring.position.z += SPEED + bassVal * 0.1;
+    ring.position.z += SPEED;
 
     // 2. Loop ring back to far plane when it passes the camera
     if (ring.position.z > 2) {
       ring.position.z = -((NUM_RINGS - 1) * RING_SPACING);
     }
 
-    // 3. Audio Reactivity (Scale & Color)
-    const binValue = freqData[index % freqData.length] || 0;
-    const normalizedFreq = binValue / 255;
-
-    // Scale ring based on its corresponding audio frequency bin
-    const scale = 1 + normalizedFreq * 1.2;
-    ring.scale.set(scale, scale, scale);
-
-    // Rotate individual ring sections
+    // 3. Rotate individual ring sections
     ring.rotation.z += 0.005 + (index % 2 === 0 ? 0.005 : -0.005);
-
-    // Dynamic HSL Color Shift based on frequency energy
-    // ring.material.color.setHSL(0.45 + normalizedFreq * 0.3, 1.0, 0.5); //wip
   });
 
   renderer.render(scene, camera);
